@@ -1,0 +1,35 @@
+{
+  "name": "plsql-run",
+  "version": "1.0.0",
+  "description": "parse and run oracle plsql scripts",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/techleadits/plsql-run.git"
+  },
+  "keywords": [
+    "oracle",
+    "plsql",
+    "script"
+  ],
+  "author": "lourenço viana",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/techleadits/plsql-run/issues"
+  },
+  "homepage": "https://github.com/techleadits/plsql-run#readme",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "fs-extra": "^6.0.1",
+    "oracledb": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.21",
+    "@types/fs-extra": "^5.0.3",
+    "@types/oracledb": "^1.11.34",
+    "typescript": "^2.9.2"
+  }
+}
