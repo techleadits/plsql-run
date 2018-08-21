@@ -2,7 +2,7 @@
   "name": "plsql-run",
   "version": "1.0.0",
   "description": "parse and run oracle plsql scripts",
-  "main": "main.js",
+  "main": "./build/sql-run.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -30,6 +30,7 @@
     "@types/bluebird": "^3.5.21",
     "@types/fs-extra": "^5.0.3",
     "@types/oracledb": "^1.11.34",
+    "gulp": "^3.9.1",
     "typescript": "^2.9.2"
   }
 }

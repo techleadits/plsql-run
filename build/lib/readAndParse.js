@@ -1,5 +1,7 @@
 "use strict";
-// import * as Bluebird from 'bluebird';
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -8,52 +10,47 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// declare global {
-//     interface Promise<T> extends Bluebird<T> {
-//         then(...args: any[]): any;
-//         catch(...args: any[]): any;
-//     }
-//     interface PromiseConstructor extends DummyConstructor {}
-//     var Promise: Promise<any>;
-// }
-// Promise = Bluebird as any;
-const Promise = __importStar(require("bluebird"));
-global.Promise = Promise;
+const bluebird_1 = __importDefault(require("bluebird"));
+const fse = require("fs-extra");
 const configurationService = __importStar(require("./configuration"));
 const Model_1 = require("./Model");
 const Progress_1 = require("./Progress");
-// export function readFiles(files:SqlFile[]|string[]):Promise{
-//     var promisses:Promise<SqlFile>[]=[];
-//     while(files&&files.length>0){
-//         let fileTemp=files.shift();
-//         if(fileTemp&&fileTemp){
-//             promisses.push(readFile(fileTemp));
-//         }
-//     }
-//     return Bluebird.all(promisses)
-// }
-// export function readFile(fileConfigParam:SqlFile|string):Promise<SqlFile>{
-//     let fileConfig:SqlFile;
-//     if(typeof fileConfigParam=='string'){
-//         fileConfig={file:fileConfigParam}
-//     }else{
-//         fileConfig=<SqlFile>fileConfigParam;
-//     }
-//     let encoding=configurationService.get().encoding;
-//     if(fileConfig.encoding){
-//         encoding=fileConfig.encoding;
-//     }
-//     return fse.readFile(fileConfig.file,{encoding:encoding})
-//     .then((data:string)=>{
-//         fileConfig.data=data;
-//         return fileConfig;
-//     })
-//     .catch((err:string)=>{
-//         console.error("cant read file "+ "");
-//         fileConfig.data=err;
-//         return fileConfig;
-//     })
-// }
+function readFiles(files) {
+    var promisses = [];
+    while (files && files.length > 0) {
+        let fileTemp = files.shift();
+        if (fileTemp && fileTemp) {
+            promisses.push(readFile(fileTemp));
+        }
+    }
+    return bluebird_1.default.all(promisses);
+}
+exports.readFiles = readFiles;
+function readFile(fileConfigParam) {
+    let fileConfig;
+    if (typeof fileConfigParam == 'string') {
+        fileConfig = { file: fileConfigParam };
+    }
+    else {
+        fileConfig = fileConfigParam;
+    }
+    let encoding = configurationService.get().encoding;
+    if (fileConfig.encoding) {
+        encoding = fileConfig.encoding;
+    }
+    return new bluebird_1.default((resolve, reject) => {
+        fse.readFile(fileConfig.file, { encoding: encoding })
+            .then((data) => {
+            fileConfig.data = data;
+            resolve(fileConfig);
+        })
+            .catch((err) => {
+            fileConfig.data = err;
+            reject(fileConfig);
+        });
+    });
+}
+exports.readFile = readFile;
 function parseScripts(files, callbackProgress) {
     var progress = new Progress_1.Progress(files.length, callbackProgress);
     progress.start(`parsingFiles ${files.length}`);
