@@ -1,6 +1,6 @@
 {
   "name": "plsql-run",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "parse and run oracle plsql scripts",
   "main": "./build/sql-run.js",
   "scripts": {

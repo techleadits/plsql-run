@@ -3,7 +3,7 @@
 import * as  oracledb from 'oracledb';
 import  Bluebird from 'bluebird';
 import { SqlRunner } from '../SqlRunner';
-export abstract class SqlOracleRunner extends SqlRunner{
+export class SqlOracleRunner extends SqlRunner{
  
     constructor(connection: oracledb.IConnectionAttributes){
         super(connection);
